@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
     {
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && GetComponent<Rigidbody>().position.x > -20)
         {
-            transform.Translate((Vector3.left) * Time.deltaTime * 10);
+            transform.Translate((Vector3.left) * Time.deltaTime * 20);
             float z = Input.GetAxis("Horizontal") * -30.0f;
             Vector3 euler = transform.localEulerAngles;
             euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && GetComponent<Rigidbody>().position.x < 20)
         {
-            transform.Translate((Vector3.right) * Time.deltaTime * 10);
+            transform.Translate((Vector3.right) * Time.deltaTime * 20);
             float z = Input.GetAxis("Horizontal") * -30.0f;
             Vector3 euler = transform.localEulerAngles;
             euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
@@ -44,5 +44,10 @@ public class Movement : MonoBehaviour
             euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
             transform.localEulerAngles = euler;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
