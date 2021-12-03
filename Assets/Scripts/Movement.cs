@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     private Text livesText;
     private int lives;
     public GameObject explosionPrefab;
+    private Quaternion startRotation, tilt;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class Movement : MonoBehaviour
         Score = 0;
         livesText = GameObject.Find("Lives").GetComponent<Text>();
         lives = 3;
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+        startRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -29,34 +32,30 @@ public class Movement : MonoBehaviour
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && GetComponent<Rigidbody>().position.x > -20)
         {
             transform.Translate((Vector3.left) * Time.deltaTime * 20);
-            float z = Input.GetAxis("Horizontal") * -30.0f;
-            Vector3 euler = transform.localEulerAngles;
-            euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
-            transform.localEulerAngles = euler;
-            //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z + time);
+            if (transform.localEulerAngles.z < 40 || transform.localEulerAngles.z>315)
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z + (time*4));
         }
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            float z = Input.GetAxis("Horizontal") * 0;
-            Vector3 euler = transform.localEulerAngles;
-            euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
-            transform.localEulerAngles = euler;
+            tilt = Quaternion.Euler(startRotation.eulerAngles.x, startRotation.eulerAngles.y, startRotation.eulerAngles.z);
+            time = 0;
         }
 
         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && GetComponent<Rigidbody>().position.x < 20)
         {
             transform.Translate((Vector3.right) * Time.deltaTime * 20);
-            float z = Input.GetAxis("Horizontal") * -30.0f;
-            Vector3 euler = transform.localEulerAngles;
-            euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
-            transform.localEulerAngles = euler;
+            if (transform.localEulerAngles.z > 320 || transform.localEulerAngles.z < 45)
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z - (time*4));
         }
         if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
         {
-            float z = Input.GetAxis("Horizontal") * 0;
-            Vector3 euler = transform.localEulerAngles;
-            euler.z = Mathf.Lerp(euler.z, z, 60 * Time.deltaTime);
-            transform.localEulerAngles = euler;
+            tilt = Quaternion.Euler(startRotation.eulerAngles.x, startRotation.eulerAngles.y, startRotation.eulerAngles.z);
+            time = 0;
+        }
+        if (!Input.anyKey)
+        {
+            time = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, tilt, Time.deltaTime * 10);
         }
     }
 

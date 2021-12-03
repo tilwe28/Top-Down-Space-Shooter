@@ -15,9 +15,6 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         time = 0;
-        /*r = Random.Range(-18, 18);
-        GameObject enemy = Instantiate(enemyPrefab, new Vector3(r, 0, 12), transform.rotation);
-        enemy.GetComponent<Rigidbody>().AddForce(-1 * transform.forward * 300, ForceMode.Acceleration);*/
 
         ship1 = true;
         ship2 = true;
