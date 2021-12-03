@@ -23,7 +23,7 @@ public class Shooter : MonoBehaviour
                 side = 0.75f;
             Vector3 spawnPos = new Vector3(transform.position.x + side, 0, transform.position.z + 0.75f);
             GameObject missile = Instantiate(missilePrefab, spawnPos, new Quaternion(0f, 0f, 0f, 0f));
-            missile.GetComponent<Rigidbody>().AddForce(transform.forward*300, ForceMode.Acceleration);
+            missile.GetComponent<Rigidbody>().AddForce(transform.forward*1000, ForceMode.Acceleration);
         }
     }
 }

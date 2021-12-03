@@ -17,8 +17,12 @@ public class SmallExplosion : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time >= 0.5)
+        if (gameObject == GameObject.Find("BigExplosionEffect(Clone)") && time>=1)
         {
+            Destroy(gameObject);
+            time = 0;
+        }
+        if (time>=0.5 && gameObject == GameObject.Find("SmallExplosionEffect(Clone)")) {
             Destroy(gameObject);
             time = 0;
         }

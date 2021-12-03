@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Missile.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shooter.cs" />
     <Compile Include="Assets\Scripts\SmallExplosion.cs" />
     <None Include="Assets\Sayantan\Props\Small\CruiseMissile\ReadMe.txt" />
